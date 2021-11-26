@@ -20,7 +20,7 @@ function draw(canvas, map, lotto) {
   }
   ctx.stroke();
   const seed_pos = (lotto * 0xeb65 + 0xa683) & 0xffff;
-  const seed_neg = 0x10000 - seed;
+  const seed_neg = 0x10000 - seed_pos;
   const location_low_pos = TILE_DATA[0x18f + (seed_pos & 0xff) % 0x84];
   const location_low_neg = TILE_DATA[0x18f + (seed_neg & 0xff) % 0x84];
   const location_high_pos = TILE_DATA[0x10a * 2 + (seed_pos >> 8) % 0x84];
