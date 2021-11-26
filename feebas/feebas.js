@@ -31,7 +31,7 @@ function draw(canvas, map, lotto) {
       'red': [location_low_neg, location_high_neg],
   })){
     ctx.fillStyle = color;
-    for (loc of locations) {
+    for (const loc of locations) {
       ctx.fillRect(
           0.5 + (loc[0] - TILE_DATA[0][0]) * TILE_SIZE,
           0.5 + (loc[1] - TILE_DATA[0][1]) * TILE_SIZE,
