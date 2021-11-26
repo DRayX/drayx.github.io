@@ -1,0 +1,13 @@
+body {
+  color: #f5f5f5;
+  background-color: #121b24;
+}
+
+input {
+  color: #f5f5f5;
+  background-color: #332940;
+  border: 2px solid #6a739d;
+  border-style: none;
+  border-radius: 25px;
+  text-align: center;
+}

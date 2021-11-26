@@ -23,8 +23,8 @@ function draw(canvas, map, lotto) {
   const seed_neg = 0x10000 - seed_pos;
   const location_low_pos = TILE_DATA[0x18f + (seed_pos & 0xff) % 0x84];
   const location_low_neg = TILE_DATA[0x18f + (seed_neg & 0xff) % 0x84];
-  const location_high_pos = TILE_DATA[0x10a * 2 + (seed_pos >> 8) % 0x84];
-  const location_high_neg = TILE_DATA[0x10a * 2 + (seed_neg >> 8) % 0x84];
+  const location_high_pos = TILE_DATA[0x10a + (seed_pos >> 8) % 0x84];
+  const location_high_neg = TILE_DATA[0x10a + (seed_neg >> 8) % 0x84];
   ctx.fillStyle = 'green';
   for (const [color, locations] of Object.entries({
       'green': [location_low_pos, location_high_pos],
