@@ -3,11 +3,11 @@
   "icons": [
     {
       "src": "",
-      "sizes": "192x192",
+      "sizes": "192x192"
     },
     {
       "src": "",
-      "sizes": "512x512",
+      "sizes": "512x512"
     },
   ],
   "start_url": "./index.html",

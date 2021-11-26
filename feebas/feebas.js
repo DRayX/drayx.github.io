@@ -4,7 +4,7 @@ import {loadImage} from './util.js';
 const TILE_SIZE = 16;
 
 function draw(canvas, map, lotto) {
-  const ctx = canvas.\.getContext('2d');
+  const ctx = canvas.getContext('2d');
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(map, 0, 0);
   ctx.lineWidth = 1;
