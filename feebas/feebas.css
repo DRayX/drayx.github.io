@@ -1,6 +1,7 @@
 body {
   color: #f5f5f5;
   background-color: #121b24;
+  max-width: 40em;
 }
 
 input {
