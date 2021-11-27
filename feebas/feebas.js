@@ -1,7 +1,15 @@
 import {TILE_DATA} from './tiles.js';
-import {loadImage} from './util.js';
 
 const TILE_SIZE = 16;
+
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.addEventListener('load', () => resolve(img));
+    img.addEventListener('error', reject);
+    img.src = src;
+  });
+}
 
 function draw(canvas, map, lotto) {
   const ctx = canvas.getContext('2d');
@@ -41,7 +49,7 @@ function draw(canvas, map, lotto) {
   }
 }
 
-(async function() {
+window.addEventListener('load', async () => {
   const map = await loadImage('./map.png');
   const canvas = document.getElementById('canvas');
   [canvas.width, canvas.height] = [map.width, map.height];
@@ -49,4 +57,10 @@ function draw(canvas, map, lotto) {
   const input = document.getElementById('lottery');
   input.addEventListener('input', () => draw(canvas, map, input.value));
   draw(canvas, map, input.value);
-})();
+});
+
+if ('serviceWorker' in navigator) {
+  window .addEventListener('load', async () => {
+    await navigator.serviceWorker.register('./service-worker.js');
+  });
+}
