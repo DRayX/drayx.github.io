@@ -10,7 +10,107 @@
   <script type="module" src="feebas.js"></script>
 </head>
 <body>
-  Lottery Number: <input id="lottery" /><br />
+  <div class="box">
+    Either both green squares or both red squares can spawn Feebas.<br />
+    Lottery Number: <input id="lottery" /><br />
+  </div>
   <canvas id="canvas" style="margin: 8px 0"></canvas>
+  <div class="box">
+    <h3>Credits</h3>
+    PokemonRNG Discord<br />
+    <a href="https://github.com/lincoln-lm">lincoln</a><br />
+    EzPzStreamz<br />
+  </div>
+  <div class="box">
+    <h3>FAQ</h3>
+    <ul>
+      <li>
+        <p><b>Why is one of my Feebas tiles on the ground?</b></p>
+        <p>
+          This is not a bug in the calculator, this is a bug in BDSP. For some
+          reason, the 4 ground tiles on the south side of the big rock can be
+          selected as Feebas tiles, even though they  can't be fished. This
+          will affect at most one tile per day.
+        </p>
+      </li>
+      <li>
+        <p><b>How does this work?</b></p>
+        <p>
+          See the <a href="#how-this-works">How this Works</a> section below.
+        </p>
+      </li>
+      <li>
+        <p><b>Why are there two sets of tiles?</b></p>
+        <p>
+          The lottery number only gives us enough information to narrow down
+          two of the four Feebas tiles with 50% certainty. See the
+          <a href="#how-this-works">How this Works</a> section below for more
+          details.
+        </p>
+      </li>
+      <li>
+        <p><b>Why are there some tiles where Feebas never appears?</b></p>
+        <p>
+          Due to weird edge cases in the algorithm used by BDSP, there are 7
+          tiles where Feebas will never appear. Overall, the code in BDSP seems
+          way buggier than the approach used in DPPt.
+        </p>
+      </li>
+      <li>
+        <p><b>I checked both red and green tiles, and can't find Feebas?</b></p>
+        <p>
+          Make sure youre fishing the correct tile; your character should be on
+          an adjacent tile, and your fishing bobber should be on the Feebas
+          tile. Remember that even if you're fishing the correct tile, Feebas
+          still only has a 50% spawn chance, so keep trying.
+        </p>
+        <p>
+          If you're very sure that none of the tiles are working, double check
+          that your lottery number is correct. It's also possible that there we
+          missed something in reverse engineering the algorithm, and there's a
+          bug in this calculator. Furthermore, this tool is based on v1.1.1 of the
+          game, so a new update may have changed the algorithm.
+        </p>
+      </li>
+    </ul>
+  </div>
+  <div class="box" id="how-this-works">
+    <h3>How this Works</h3>
+    <p>
+      Both the lottery number and Feebas tiles are based on the
+      <i>group seed</i>. This is a number that is randomly generated once
+      when you create your save and each time you create a new group.
+      When other players join your group, their group seed is
+      updated to match yours. Each day, this value is progressed following
+      a predictable pattern (unimportant to this tool).
+    </p>
+    <p>
+      The lottery number is computed as
+      <code>(group_seed * 0x41c64e6d + 0x3039) &amp 0xffff</code>.
+      Using this, we can calculate the 2 low bytes of the group seed as
+      <code>(lotto * 0xeb65 + 0xa683) &amp 0xffff</code>
+      (since the multiplicative inverse of <code>0x41c64e6d</code> is <code>0xeeb9eb65</code>
+      and <code>0xeeb9eb65 * 0x3039 = 0xfc77a683</code>).
+    </p>
+    <p>
+      The 4 Feebas tiles are each based on one of the 4 bytes of the absolute
+      value of the group seed. First, 4 indexes are calculated:
+      <ul>
+        <li><code>(abs(group_seed) >> 24 &amp 0xff) % 0x84</code></li>
+        <li><code>(abs(group_seed) >> 16 &amp 0xff) % 0x84 + 0x84 + 1</code></li>
+        <li><code>(abs(group_seed) >> 8 &amp 0xff) % 0x84 + 0x84 * 2 + 2</code></li>
+        <li><code>(abs(group_seed) &amp 0xff) % 0x84 + 0x84 * 3 + 3</code></li>
+      </ul>
+      Then each index is looked up in a table of tile positions that is simply
+      top-left to bottom-right skipping rocks.
+    </p>
+    <p>
+      Since we have the two low bytes of the group seed from the lottery
+      number, we can find 2 Feebas tiles (in the bottom half).  Due to the
+      absolute value, we have two possible possitions for each tile (since
+      we don't know the high bit of the gorup seed). We then calculate the
+      four possible values, two for each of the low bytes of the group seed.
+    </p>
+  </div>
 </body>
 </html>

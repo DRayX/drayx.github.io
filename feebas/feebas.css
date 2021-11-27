@@ -6,8 +6,25 @@ body {
 input {
   color: #f5f5f5;
   background-color: #332940;
-  border: 2px solid #6a739d;
-  border-style: none;
-  border-radius: 25px;
+  border: 1px solid #6a739d;
+  border-radius: 1em;
   text-align: center;
+}
+
+code {
+  background-color: #283030;
+}
+
+a {
+  color: #a4a4a4;
+}
+
+h3 {
+  margin: 0.25em 0;
+}
+
+.box {
+  border: 1px solid #6a739d;
+  padding: 0.5em;
+  margin: 0.25em;
 }
