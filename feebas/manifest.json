@@ -2,11 +2,11 @@
   "name": "Feebas Calculator",
   "icons": [
     {
-      "src": "",
+      "src": "./icon-192.png",
       "sizes": "192x192"
     },
     {
-      "src": "",
+      "src": "./icon-512.png",
       "sizes": "512x512"
     }
   ],
