@@ -25,6 +25,11 @@ h3 {
 
 .box {
   border: 1px solid #6a739d;
+  border-radius: 0.5em;
   padding: 0.5em;
   margin: 0.25em;
+}
+
+#canvas {
+  margin: 0.25em 0;
 }
