@@ -37,7 +37,7 @@ function draw(canvas, map, lotto) {
   for (const [color, locations] of Object.entries({
       'green': [location_low_pos, location_high_pos],
       'red': [location_low_neg, location_high_neg],
-  })){
+  })) {
     ctx.fillStyle = color;
     for (const loc of locations) {
       ctx.fillRect(
